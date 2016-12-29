@@ -6,7 +6,7 @@ Module      : Hsmtlib.Solver
 module Hsmtlib.Solver where
 
 import           Data.Map
-import           Smtlib.Syntax.Syntax
+import           SmtLib.Syntax.Syntax
 
 
 -- | Logics that can be passed to the start of the solver
@@ -45,9 +45,9 @@ data Solvers = Z3 | Cvc4 | Yices | Mathsat | Altergo | Boolector
    for example CGI correspondes to the command Get Info.
    The Command CGR is the result for the command that dont return anything by default, for
    example push or pop. What is returned by this command is if it was succefull or not.
-  
+
 -}
-data Result = CGR GenResponse 
+data Result = CGR GenResponse
             | CGI GetInfoResponse
             | CCS CheckSatResponse
             | CGAssert GetAssertionsResponse
@@ -69,7 +69,7 @@ data Mode = Online | Script
   Alternative configuration of a solver which can be passed in the function
   startSolver in 'Main'
 -}
-data SolverConfig = Config 
+data SolverConfig = Config
                   { path :: String
                   , version :: String
                   }

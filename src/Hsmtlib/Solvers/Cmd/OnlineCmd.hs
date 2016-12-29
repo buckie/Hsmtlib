@@ -9,8 +9,8 @@ import           Control.Applicative                  (liftA)
 import           Hsmtlib.Solver
 import           Hsmtlib.Solvers.Cmd.CmdResult
 import           Hsmtlib.Solvers.Cmd.ProcCom.Process
-import           Smtlib.Syntax.Syntax                  
-import           Smtlib.Syntax.ShowSL
+import           SmtLib.Syntax.Syntax                  
+import           SmtLib.Syntax.ShowSL
 
 --Uses the function  send from Cmd.Solver to send the command.
 onlineFun ::  Process  -> Command -> Solvers ->  IO String

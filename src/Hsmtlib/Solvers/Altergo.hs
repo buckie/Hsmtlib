@@ -16,8 +16,8 @@ import           Control.Applicative           as Ctr hiding ((<|>))
 import           Control.Monad
 import           Data.Functor.Identity
 
-import           Smtlib.Parsers.CommonParsers
-import           Smtlib.Syntax.Syntax        as CmdRsp
+import           SmtLib.Parsers.CommonParsers
+import           SmtLib.Syntax.Syntax        as CmdRsp
 
 import           Text.Parsec.Prim              as Prim
 import           Text.ParserCombinators.Parsec as Pc
@@ -30,22 +30,23 @@ import           Text.ParserCombinators.Parsec as Pc
 altErgoConfigOnline :: SolverConfig
 altErgoConfigOnline =
         Config { path = "altergo"
-               , args = ["-v"]
+               , version = "1.30"
                }
 
 altErgoConfigScript :: SolverConfig
 altErgoConfigScript =
         Config { path = "altergo"
-               , args = ["-v"]
+               , version = "1.30"
                }
 
 altErgoConfigBatch :: SolverConfig
 altErgoConfigBatch =
         Config { path = "altergo"
-               , args = ["-v"]
+               , version = "1.30"
                }
 
-
+stdArgs :: [String]
+stdArgs = ["-v"]
 
 {- |
   Function that initialyzes a altergo Solver.
@@ -74,7 +75,7 @@ startAltErgoOnline logic (Just conf) = startAltErgoOnline' logic conf
 startAltErgoOnline' :: String -> SolverConfig -> IO Solver
 startAltErgoOnline' logic conf = do
   -- Starts a Z4 Process.
-  process <- beginProcess (path conf) (args conf)
+  process <- beginProcess (path conf) stdArgs
   --Set Option to print success after accepting a Command.
   _ <- onlineSetOption Altergo process (PrintSuccess True)
   -- Sets the SMT Logic.
@@ -118,7 +119,7 @@ newScriptArgs :: SolverConfig  -> Handle -> FilePath -> ScriptConf
 newScriptArgs solverConfig nHandle scriptFilePath =
   ScriptConf { sHandle = nHandle
              , sCmdPath = path solverConfig
-             , sArgs = args solverConfig
+             , sArgs = stdArgs
              , sFilePath  = scriptFilePath
              }
 
@@ -136,13 +137,13 @@ parseCmdCheckSatResponseAlt :: ParsecT String u Identity CmdResponse
 parseCmdCheckSatResponseAlt = liftM  CmdCheckSatResponse parseCheckSatResponseAlt
 
 onlineCheckSatAlt ::Solvers -> Process  -> IO Result
-onlineCheckSatAlt solver proc = 
+onlineCheckSatAlt solver proc =
     onlineCheckSatResponseAlt proc CheckSat solver
 
 
 onlineCheckSatResponseAlt :: Process -> Command -> Solvers -> IO Result
-onlineCheckSatResponseAlt proc cmd solver = 
-    liftA checkSatResponseAlt (onlineFun proc cmd solver) 
+onlineCheckSatResponseAlt proc cmd solver =
+    liftA checkSatResponseAlt (onlineFun proc cmd solver)
 
 checkSatResponseAlt :: String -> Result
 checkSatResponseAlt stg =

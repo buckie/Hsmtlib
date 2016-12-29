@@ -10,8 +10,8 @@ import           Text.ParserCombinators.Parsec.Prim (parse)
 
 
 
-import           Smtlib.Parsers.ResponseParsers
-import           Smtlib.Syntax.Syntax             as S
+import           SmtLib.Parsers.ResponseParsers
+import           SmtLib.Syntax.Syntax             as S
 import           Hsmtlib.Solver                     as Solv
 
 

@@ -10,7 +10,7 @@ import           Hsmtlib.Solver                      as Slv
 import           Hsmtlib.Solvers.Cmd.OnlineCmd
 import           Hsmtlib.Solvers.Cmd.ProcCom.Process
 import           Hsmtlib.Solvers.Cmd.ScriptCmd
-import           Smtlib.Syntax.Syntax
+import           SmtLib.Syntax.Syntax
 import           System.IO                           (Handle,
                                                       IOMode (WriteMode),
                                                       openFile)

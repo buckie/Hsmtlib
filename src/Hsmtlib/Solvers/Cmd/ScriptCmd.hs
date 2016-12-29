@@ -6,12 +6,12 @@ Module with the functions used in script Mode.
 module Hsmtlib.Solvers.Cmd.ScriptCmd where
 
 import           Control.Applicative                 (liftA)
-import           Smtlib.Syntax.Syntax              (GenResponse (Success))
+import           SmtLib.Syntax.Syntax              (GenResponse (Success))
 import           Hsmtlib.Solver
 import           Hsmtlib.Solvers.Cmd.CmdResult
 import           Hsmtlib.Solvers.Cmd.ProcCom.Process
-import           Smtlib.Syntax.Syntax
-import           Smtlib.Syntax.ShowSL
+import           SmtLib.Syntax.Syntax
+import           SmtLib.Syntax.ShowSL
 import           System.IO                           (Handle, hClose, hFlush,
                                                       hPutStr)
 import           Text.PrettyPrint

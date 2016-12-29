@@ -7,8 +7,8 @@ module Hsmtlib(startSolver) where
 
 import           Hsmtlib.Solver            as Slv
 
-import Smtlib.Parsers.CommandsParsers
-import Smtlib.Syntax.Syntax
+import SmtLib.Parsers.CommandsParsers
+import SmtLib.Syntax.Syntax
 import Text.ParserCombinators.Parsec
 import Data.Functor
 import Control.Monad
@@ -51,7 +51,7 @@ of the last function.
 
 
 startSolver :: Solvers -- ^ Avaliable'Solvers'.
-			-> Maybe SolverConfig 
+            -> Maybe SolverConfig
             -> IO Solver
 startSolver Z3 = startZ3
 startSolver Mathsat = startMathSat
@@ -67,9 +67,9 @@ parseRes solver cfg (Right cmds) =executeCommands solver cfg cmds
 
 
 executeCommands :: Solvers -> Maybe SolverConfig -> Source -> IO [Result]
-executeCommands solver cfg cmds = do 
-	solv <- startSolver solver cfg
-	mapM (execCmd solv) cmds
+executeCommands solver cfg cmds = do
+  solv <- startSolver solver cfg
+  mapM (execCmd solv) cmds
 
 
 execCmd :: Solver -> Command  -> IO Result
@@ -79,8 +79,8 @@ execCmd solver (SetInfo attr) = setInfo solver attr
 execCmd solver (DeclareSort symb numb) = declareSort solver symb numb
 execCmd solver (DefineSort symb symbs sort) = defineSort solver symb symbs  sort
 execCmd solver (DeclareFun str sorts sort) = declareFun solver str sorts sort
-execCmd solver (DefineFun str vars sort term) = 
-	defineFun solver str vars sort term
+execCmd solver (DefineFun str vars sort term) =
+  defineFun solver str vars sort term
 execCmd solver (Push n) = push solver n
 execCmd solver (Pop n) = pop solver n
 execCmd solver (Assert term) = assert solver term

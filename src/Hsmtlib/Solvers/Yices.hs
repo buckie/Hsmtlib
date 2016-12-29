@@ -9,7 +9,7 @@ import           Hsmtlib.Solver                      as Slv
 import           Hsmtlib.Solvers.Cmd.OnlineCmd
 import           Hsmtlib.Solvers.Cmd.ProcCom.Process
 import           Hsmtlib.Solvers.Cmd.ScriptCmd
-import           Smtlib.Syntax.Syntax
+import           SmtLib.Syntax.Syntax
 import           System.IO                           (Handle,
                                                       IOMode (WriteMode),
                                                       openFile)
@@ -18,26 +18,19 @@ import           System.IO                           (Handle,
 yicesConfigOnline :: SolverConfig
 yicesConfigOnline =
     Config { path = "yices-smt2"
-           , args = [ "--interactive"]
+           , version = "2.5.1"
            }
 
-
-
-
-
+stdArgs = ["--interactive"]
 
 startYices:: IO Solver
 startYices = do
   -- Starts a Yices Process.
-  process <- beginProcess (path yicesConfigOnline) (args yicesConfigOnline)
+  process <- beginProcess (path yicesConfigOnline) stdArgs
   --Set Option to print success after accepting a Command.
   _ <- onlineSetOption Yices process (PrintSuccess True)
   -- Initialize the solver Functions and return them.
   return $ onlineSolver process
-
-
-
-
 
 -- Creates the functions for online mode with the process already running.
 -- Each function will send the command to the solver and wait for the response.
@@ -62,4 +55,3 @@ onlineSolver process =
          , getOption = onlineGetOption Yices process
          , exit = onlineExit process
          }
-

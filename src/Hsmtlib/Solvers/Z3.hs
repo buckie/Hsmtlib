@@ -11,7 +11,7 @@ import           Hsmtlib.Solvers.Cmd.OnlineCmd
 import           Hsmtlib.Solvers.Cmd.ProcCom.Process
 import           Hsmtlib.Solvers.Cmd.ScriptCmd
 import           Hsmtlib.Solvers.Cmd.CmdResult
-import           Smtlib.Syntax.Syntax
+import           SmtLib.Syntax.Syntax
 import           System.IO                           (Handle,
                                                       IOMode (WriteMode),
                                                       openFile)
@@ -34,7 +34,7 @@ stdFlags = ["-smt2","-in"]
   In Online Mode if a FilePath is passed then it's ignored.
 -}
 
- 
+
 startZ3 :: Maybe SolverConfig -> IO Solver
 startZ3 Nothing = startZ3' z3Config
 startZ3 (Just cfg) = startZ3' cfg
@@ -61,7 +61,7 @@ onlineSolver process =
          , defineSort = onlineDefineSort Z3  process
          , declareFun = onlineDeclareFun Z3  process
          , defineFun = onlineDefineFun Z3  process
-         , push = onlinePush Z3 process 
+         , push = onlinePush Z3 process
          , pop = onlinePop Z3 process
          , assert = onlineAssert Z3 process
          , checkSat = onlineCheckSat Z3 process
@@ -73,4 +73,3 @@ onlineSolver process =
          , getOption = onlineGetOption Z3 process
          , exit = onlineExit process
          }
-

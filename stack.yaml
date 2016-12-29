@@ -1,0 +1,16 @@
+# stack yaml for ghc builds
+
+resolver: lts-6.12
+
+packages:
+- '.'
+- location:
+    git: git@github.com:buckie/SmtLib.git
+    commit: d19457c665aed402ff7069712cac12f4c433c6d6
+  extra-dep: true
+
+extra-deps: []
+
+flags: {}
+
+extra-package-dbs: []

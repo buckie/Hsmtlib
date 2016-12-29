@@ -9,7 +9,7 @@ import           Hsmtlib.Solver                      as Slv
 import           Hsmtlib.Solvers.Cmd.OnlineCmd
 import           Hsmtlib.Solvers.Cmd.ProcCom.Process
 import           Hsmtlib.Solvers.Cmd.ScriptCmd
-import           Smtlib.Syntax.Syntax
+import           SmtLib.Syntax.Syntax
 import           System.IO                           (Handle,
                                                       IOMode (WriteMode),
                                                       openFile)
@@ -21,21 +21,23 @@ import           System.IO                           (Handle,
 boolectorConfigOnline :: SolverConfig
 boolectorConfigOnline =
         Config { path = "boolector"
-               , args = ["--smt2", "-d2", "-o STDOUT"]
+               , version = "2.3.1"
                }
 
 boolectorConfigScript :: SolverConfig
 boolectorConfigScript =
         Config { path = "boolector"
-               , args = ["--smt2", "-d2", "-o STDOUT"]
+               , version = "2.3.1"
                }
 
 boolectorConfigBatch :: SolverConfig
 boolectorConfigBatch =
         Config { path = "boolector"
-               , args = ["--smt2", "-d2", "-o STDOUT"]
+               , version = "2.3.1"
                }
 
+stdFlags :: [String]
+stdFlags = ["--smt2", "-d2", "-o STDOUT"]
 
 {- |
   Function that initialyzes a boolector Solver.
@@ -62,7 +64,7 @@ startBoolectorOnline logic (Just conf) = startBoolectorOnline' logic conf
 startBoolectorOnline' :: String -> SolverConfig -> IO Solver
 startBoolectorOnline' logic conf = do
   -- Starts a Z4 Process.
-  process <- beginProcess (path conf) (args conf)
+  process <- beginProcess (path conf) stdFlags
   --Set Option to print success after accepting a Command.
   --onlineSetOption process (OptPrintSuccess True)
   -- Sets the SMT Logic.
@@ -106,7 +108,7 @@ newScriptArgs :: SolverConfig  -> Handle -> FilePath -> ScriptConf
 newScriptArgs solverConfig nHandle scriptFilePath =
   ScriptConf { sHandle = nHandle
              , sCmdPath = path solverConfig
-             , sArgs = args solverConfig
+             , sArgs = stdFlags
              , sFilePath  = scriptFilePath
              }
 
